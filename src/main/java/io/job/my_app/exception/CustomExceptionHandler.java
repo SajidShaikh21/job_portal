@@ -51,13 +51,7 @@ public class CustomExceptionHandler {
     }
 
 
-    @ExceptionHandler(BrokerProfileNotFoundException.class)
-    public ResponseEntity<ApiResponse> brokerProfileNotFoundExceptionHandler(BrokerProfileNotFoundException ex){
 
-        String message=ex.getMessage();
-        ApiResponse apiResponse =new ApiResponse(message,false);
-        return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
-    }
     @ExceptionHandler(InvalidOtpException.class)
     public ResponseEntity<ApiResponse> invalidOtpExceptionHandler(InvalidOtpException ex){
 

@@ -13,7 +13,7 @@ public class JobPost {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long jobId;
+    private Integer jobId;
 
     @Column(nullable = false)
     private String title;
