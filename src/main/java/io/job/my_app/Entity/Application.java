@@ -18,6 +18,9 @@ public class Application {
     @Column(nullable = false)
     private String applicantName;
 
+
+
+
     @Temporal(TemporalType.DATE)
     private Date appliedDate;
 
