@@ -14,7 +14,7 @@ public class LaborDomain {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long domainId;
+    private Integer domainId;
 
     @Column(nullable = false)
     private String domainName;
