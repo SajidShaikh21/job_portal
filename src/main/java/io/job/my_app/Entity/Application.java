@@ -19,8 +19,6 @@ public class Application {
     private String applicantName;
 
 
-
-
     @Temporal(TemporalType.DATE)
     private Date appliedDate;
 

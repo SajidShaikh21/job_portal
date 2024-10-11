@@ -8,7 +8,7 @@ import lombok.Data;
 public class Identity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String documentType; // e.g., "Passport", "ID Card"
     private String fileName;

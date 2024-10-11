@@ -8,7 +8,7 @@ import lombok.Data;
 public class Resume {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     private String fileName;
     private String filePath;

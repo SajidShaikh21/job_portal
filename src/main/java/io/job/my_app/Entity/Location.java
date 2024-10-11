@@ -12,7 +12,7 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long locationId;
+    private Integer locationId;
 
     @Column(nullable = false)
     private String state;

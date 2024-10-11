@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -49,18 +50,20 @@ public class DomainConfig {
 
 
     public static final String[] PUBLIC_URLS = {
-            "/api/v1/auth/**",
             "/v2/api-docs",
+            "/api-docs/**",
             "/v3/api-docs",
-            "/v*/a*-docs/**",
-            "/swagger-resources",
             "/swagger-resources/**",
             "/configuration/ui",
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/v3/api-docs/**",
+            "/swagger-ui.html",
+            "/swagger-resources/**"
     };
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -70,6 +73,12 @@ public class DomainConfig {
                                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers(HttpMethod.GET).permitAll()
+                                .requestMatchers(HttpMethod.POST).permitAll()
+                                .requestMatchers(HttpMethod.PUT).permitAll()
+                                .requestMatchers(HttpMethod.DELETE).permitAll()
 //                                .requestMatchers("/dealerDocument/**").hasAnyAuthority("ADMIN", "DEALER")
                                 .anyRequest().authenticated())
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(this.jwtAuthenticationEntryPoint))
