@@ -51,6 +51,8 @@ public class User implements UserDetails {
 
     private String password;
 
+    private String confirmPassword;
+
     @Column(length = 45)
     private String role;
 

@@ -70,6 +70,7 @@ public class DomainConfig {
                                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/user/**").permitAll()
 //                                .requestMatchers("/dealerDocument/**").hasAnyAuthority("ADMIN", "DEALER")
                                 .anyRequest().authenticated())
                 .exceptionHandling(handling -> handling.authenticationEntryPoint(this.jwtAuthenticationEntryPoint))

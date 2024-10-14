@@ -3,13 +3,10 @@ package io.job.my_app.controller;
 
 import io.job.my_app.Entity.Security.EmailVerification;
 import io.job.my_app.dto.UserDto;
-import io.job.my_app.exception.OtpExpiredException;
-import io.job.my_app.exception.UserAlreadyExistException;
+import io.job.my_app.exception.*;
 import io.job.my_app.repos.EmailVerificationRepository;
 import io.job.my_app.service.EmailService;
 import io.job.my_app.service.UserService;
-import io.job.my_app.exception.InvalidOtpException;
-import io.job.my_app.exception.ResourceNotFoundException;
 import jakarta.servlet.http.HttpSession;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -97,12 +94,15 @@ public class UserController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerUser(@RequestBody UserDto userDto, HttpSession session) throws Exception, UserAlreadyExistException {
+    public ResponseEntity<String> registerUser(@RequestBody UserDto userDto, HttpSession session) throws UserAlreadyExistException, InvalidPasswordException {
+
+        if (!userDto.getPassword().equals(userDto.getConfirmPassword())) {
+            throw new InvalidPasswordException("Password and confirm password do not match");
+        }
 
         EmailVerification emailVerification = emailVerificationRepository.findByEmail(userDto.getEmail());
 
         if (emailVerification != null && emailVerification.getStatus().equals("Verified")) {
-            // OTP is verified
             if (userDto.getPassword() != null) {
                 userDto.setPassword(this.encoder.encode(userDto.getPassword()));
             }
@@ -119,12 +119,12 @@ public class UserController {
                 return new ResponseEntity<>("Registration failed", HttpStatus.INTERNAL_SERVER_ERROR);
             }
         } else if (emailVerification != null && emailVerification.getStatus().equals("Not verified")) {
-
             return new ResponseEntity<>("OTP verification pending", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>("OTP verification is pending or email not found", HttpStatus.BAD_REQUEST);
         }
     }
+
 
 //    @GetMapping("/getUser/{userId}")
 //    public ResponseEntity<UserDto> getSingleUsers(@PathVariable Integer userId) throws ResourceNotFoundException {
