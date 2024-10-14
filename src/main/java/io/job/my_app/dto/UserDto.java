@@ -27,6 +27,9 @@
         private String moNumber;
 
         private String password;
+
+        private String confirmPassword;
+
         private String role;
 
         public UserDto(User user) {
@@ -36,9 +39,9 @@
             this.address = user.getAddress();
             this.moNumber = user.getMoNumber();
             this.password = user.getPassword();
+            this.confirmPassword=user.getConfirmPassword();
             this.status = user.getStatus();
             this.role = user.getRole();
         }
-
 
     }
