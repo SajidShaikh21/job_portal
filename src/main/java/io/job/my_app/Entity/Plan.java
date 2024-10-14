@@ -25,6 +25,8 @@ public class Plan {
     @Column(nullable = false)
     private Double price;
 
+
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user; // Employer who purchased the plan
