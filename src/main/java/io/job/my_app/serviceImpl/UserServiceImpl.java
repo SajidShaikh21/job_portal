@@ -47,6 +47,7 @@ public class UserServiceImpl implements UserService {
             }
 
 
+
             UserRole userRole = new UserRole();
             userRole.setUser(user);
             userRole.setRole(role);
@@ -93,6 +94,7 @@ public class UserServiceImpl implements UserService {
             user.setAddress(userDto.getAddress());
             user.setEmail(userDto.getEmail());
             user.setPassword(userDto.getPassword());
+            user.setConfirmPassword(user.getConfirmPassword());
             user.setMoNumber(userDto.getMoNumber());
 
             updatedUser = new UserDto(user);

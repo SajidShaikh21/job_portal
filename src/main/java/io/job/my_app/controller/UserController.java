@@ -125,6 +125,7 @@ public class UserController {
         }
     }
 
+
 //    @GetMapping("/getUser/{userId}")
 //    public ResponseEntity<UserDto> getSingleUsers(@PathVariable Integer userId) throws ResourceNotFoundException {
 //        return ResponseEntity.ok(this.userService.getUserById(userId));
