@@ -73,6 +73,7 @@ public class DomainConfig {
                                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/login/**").permitAll()
+                                .requestMatchers("/api/plans/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET).permitAll()
