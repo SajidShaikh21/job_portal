@@ -1,5 +1,6 @@
 package io.job.my_app.Entity;
 
+import io.job.my_app.Entity.Security.Status;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -24,9 +25,8 @@ public class JobPost {
     @Temporal(TemporalType.DATE)
     private Date postedDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private JobStatus status;
+@Column
+private Status status;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)

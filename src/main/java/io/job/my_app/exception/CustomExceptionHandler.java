@@ -78,5 +78,12 @@ public class CustomExceptionHandler {
     public ResponseEntity<String> handleInvalidPasswordException(InvalidPasswordException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(JobPostNotFoundException.class)
+    public ResponseEntity<ApiResponse> propertyNotFoundExceptionHandler(JobPostNotFoundException ex){
+
+        String message=ex.getMessage();
+        ApiResponse apiResponse =new ApiResponse(message,false);
+        return new ResponseEntity<ApiResponse>(apiResponse,HttpStatus.NOT_FOUND);
+    }
 
 }
