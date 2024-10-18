@@ -24,8 +24,8 @@ public class PlanController {
             PlanDto newPlan = planService.createPlan(planDto);
             return ResponseEntity.ok(newPlan);
         } catch (Exception e) {
-            // Log and rethrow for global exception handling if needed
-            throw new RuntimeException("An error occurred while creating the plan", e);
+            // Global exception handling
+            throw new RuntimeException("Error creating the plan", e);
         }
     }
 
@@ -34,67 +34,42 @@ public class PlanController {
     public ResponseEntity<List<PlanDto>> getAllPlans() {
         try {
             List<PlanDto> plans = planService.getAllPlans();
-            // Sort plans by ID in descending order
-            plans.sort((p1, p2) -> p2.getPlanId().compareTo(p1.getPlanId()));
+            plans.sort((p1, p2) -> p2.getPlanId().compareTo(p1.getPlanId()));  // Sort by ID in descending order
             return ResponseEntity.ok(plans);
         } catch (Exception e) {
-            // Log and rethrow for global exception handling if needed
-            throw new RuntimeException("An error occurred while fetching all plans", e);
+            // Global exception handling
+            throw new RuntimeException("Error fetching all plans", e);
         }
     }
 
     // Get a Plan by ID
     @GetMapping("/{id}")
     public ResponseEntity<PlanDto> getPlanById(@PathVariable Integer id) {
-        try {
-            Optional<PlanDto> plan = planService.getPlanById(id);
-            return plan.map(ResponseEntity::ok)
-                    .orElseThrow(() -> new PlanNotFoundException("Plan with ID " + id + " not found"));
-        } catch (PlanNotFoundException e) {
-            // Rethrow custom not found exception
-            throw e;
-        } catch (Exception e) {
-            // Log and rethrow for global exception handling if needed
-            throw new RuntimeException("An error occurred while fetching the plan by ID", e);
-        }
+        Optional<PlanDto> plan = planService.getPlanById(id);
+        return plan.map(ResponseEntity::ok)
+                .orElseThrow(() -> new PlanNotFoundException("Plan with ID " + id + " not found"));
     }
 
     // Update a Plan by ID
     @PutMapping("/{id}")
     public ResponseEntity<PlanDto> updatePlan(@PathVariable Integer id, @RequestBody PlanDto planDto) {
-        try {
-            PlanDto updatedPlan = planService.updatePlan(id, planDto);
-            if (updatedPlan != null) {
-                return ResponseEntity.ok(updatedPlan);
-            } else {
-                throw new PlanNotFoundException("Plan with ID " + id + " not found for update");
-            }
-        } catch (PlanNotFoundException e) {
-            // Rethrow custom not found exception
-            throw e;
-        } catch (Exception e) {
-            // Log and rethrow for global exception handling if needed
-            throw new RuntimeException("An error occurred while updating the plan", e);
+        PlanDto updatedPlan = planService.updatePlan(id, planDto);
+        if (updatedPlan != null) {
+            return ResponseEntity.ok(updatedPlan);
+        } else {
+            throw new PlanNotFoundException("Plan with ID " + id + " not found for update");
         }
     }
 
     // Delete a Plan by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable Integer id) {
-        try {
-            Optional<PlanDto> plan = planService.getPlanById(id);
-            if (plan.isPresent()) {
-                planService.deletePlan(id);
-                return ResponseEntity.noContent().build();
-            } else {
-                throw new PlanNotFoundException("Plan with ID " + id + " not found for deletion");
-            }
-        } catch (PlanNotFoundException e) {
-            // Rethrow custom not found exception
-            throw e;
-        } catch (Exception e) {
-            // Log and rethrow for global exception handling if needed
-            throw new RuntimeException("An error occurred while deleting the plan", e);
+        Optional<PlanDto> plan = planService.getPlanById(id);
+        if (plan.isPresent()) {
+            planService.deletePlan(id);
+            return ResponseEntity.noContent().build();
+        } else {
+            throw new PlanNotFoundException("Plan with ID " + id + " not found for deletion");
         }
     }
 }
