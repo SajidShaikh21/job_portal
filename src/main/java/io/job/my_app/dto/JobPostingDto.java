@@ -3,10 +3,11 @@ package io.job.my_app.dto;
 import io.job.my_app.Entity.Security.Status;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -14,11 +15,9 @@ public class JobPostingDto {
     private Integer jobId;
     private String title;
     private String description;
-    private Date postedDate;
+    private LocalDate postedDate;
     private Status status;
     private Integer userId;
-//    private List<ApplicationDto> applications;
-//    private List<LaborDomainDTO> laborDomains;
-//    private LocationDTO location;
-//
+    private Integer locationId;
+    private List<Integer> applicationIds;
 }
