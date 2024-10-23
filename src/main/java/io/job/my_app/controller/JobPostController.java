@@ -93,7 +93,7 @@ public class JobPostController
         try {
             boolean isDeleted = jobPostService.deleteJobPost(jobId);
             if (isDeleted) {
-                return ResponseEntity.ok("Job post deleted.");
+                return ResponseEntity.ok("Job post deleted");
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found");
         } catch (JobPostNotFoundException e) {
