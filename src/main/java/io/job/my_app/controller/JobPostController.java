@@ -67,6 +67,7 @@ public class JobPostController
         }
     }
 
+
     @PutMapping("/update/{jobId}")
     public ResponseEntity<?> updateJobPost(
             @PathVariable Integer jobId,
@@ -91,13 +92,15 @@ public class JobPostController
     public ResponseEntity<String> deleteJobPost(@PathVariable Integer jobId) {
         try {
             boolean isDeleted = jobPostService.deleteJobPost(jobId);
-            if (!isDeleted) {
-                return ResponseEntity.ok("Job post deleted.");
+            if (isDeleted) {
+                return ResponseEntity.ok("Job post deleted");
             }
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found");
         } catch (JobPostNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found");
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete job post with given ID: " + jobId, e);
         }
-    }}
+    }
+}
+
