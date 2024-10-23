@@ -97,7 +97,7 @@ public class JobPostController
             }
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found");
         } catch (JobPostNotFoundException e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Job post not found");
         } catch (Exception e) {
             throw new RuntimeException("Failed to delete job post with given ID: " + jobId, e);
         }
