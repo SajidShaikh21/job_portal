@@ -74,6 +74,7 @@ public class DomainConfig {
                                 .requestMatchers("/users/**").permitAll()
                                 .requestMatchers("/login/**").permitAll()
                                 .requestMatchers("/api/plans/**").permitAll()
+                                .requestMatchers("/api/employer-profiles/**").permitAll()
                                 .requestMatchers("/user/**").permitAll()
                                 .requestMatchers("/swagger-ui/**").permitAll()
                                 .requestMatchers(HttpMethod.GET).permitAll()
