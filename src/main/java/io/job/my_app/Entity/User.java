@@ -70,6 +70,9 @@ public class User implements UserDetails {
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Identity identity;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<UserSkills> userSkills;
+
     public User(UserDto userDto) {
         this.userId = userDto.getUserId();
         this.name = userDto.getName();
