@@ -23,7 +23,6 @@ public class UserSkillsControllerTest {
 
     @InjectMocks
     private UserSkillsController userSkillsController;
-
     private UserSkillsDto userSkillsDto;
 
     @BeforeEach

@@ -81,7 +81,6 @@ public class EmployerProfileControllerTest {
                 .andExpect(content().string("Employer profile with ID 1 not found."));
     }
 
-
     @Test
     void updateEmployerProfile_Success() throws Exception {
 
