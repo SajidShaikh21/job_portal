@@ -1,5 +1,4 @@
-package io.job.my_app.dto;
-
+package io.job.my_app.dto;s
 import io.job.my_app.Entity.Security.Status;
 import lombok.*;
 

@@ -1,5 +1,4 @@
 package io.job.my_app.Entity.ControllerTest;
-
 import io.job.my_app.Entity.User;
 import io.job.my_app.controller.LoginController;
 import io.job.my_app.payloads.JwtAuthRequest;

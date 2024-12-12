@@ -1,4 +1,5 @@
 package io.job.my_app.Entity.ControllerTest;
+
 import io.job.my_app.controller.EmployerProfileController;
 import io.job.my_app.dto.EmployerProfileDto;
 import io.job.my_app.exception.EmployerProfileNotFoundException;
@@ -9,12 +10,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

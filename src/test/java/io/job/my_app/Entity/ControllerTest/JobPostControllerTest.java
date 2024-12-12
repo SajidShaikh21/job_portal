@@ -1,5 +1,4 @@
 package io.job.my_app.Entity.ControllerTest;
-
 import io.job.my_app.controller.JobPostController;
 import io.job.my_app.dto.JobPostingDto;
 import io.job.my_app.exception.JobPostNotFoundException;
