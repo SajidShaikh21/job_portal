@@ -1,10 +1,8 @@
 package io.job.my_app.dto;
-
 import io.job.my_app.Entity.Security.Status;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data

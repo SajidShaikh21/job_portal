@@ -108,7 +108,6 @@ public class ResumeServiceImpl implements ResumeService {
         }
         resumeRepository.deleteById(id);
     }
-
     private boolean isSupportedFileType(String fileType) {
         return "application/pdf".equals(fileType) || "application/vnd.openxmlformats-officedocument.wordprocessingml.document".equals(fileType);
     }

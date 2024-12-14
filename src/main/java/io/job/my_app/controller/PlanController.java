@@ -17,60 +17,77 @@ public class PlanController {
     @Autowired
     private PlanService planService;
 
-    // Create a new Plan
+
     @PostMapping
     public ResponseEntity<PlanDto> createPlan(@RequestBody PlanDto planDto) {
         try {
             PlanDto newPlan = planService.createPlan(planDto);
             return ResponseEntity.ok(newPlan);
+        } catch (PlanNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
         } catch (Exception e) {
-            // Global exception handling
-            throw new RuntimeException("Error creating the plan", e);
+            return ResponseEntity.status(500).body(null);
         }
     }
 
-    // Get all Plans in descending order
     @GetMapping
     public ResponseEntity<List<PlanDto>> getAllPlans() {
         try {
             List<PlanDto> plans = planService.getAllPlans();
-            plans.sort((p1, p2) -> p2.getPlanId().compareTo(p1.getPlanId()));  // Sort by ID in descending order
+            plans.sort((p1, p2) -> p2.getPlanId().compareTo(p1.getPlanId()));
             return ResponseEntity.ok(plans);
+        } catch (PlanNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
         } catch (Exception e) {
-            // Global exception handling
-            throw new RuntimeException("Error fetching all plans", e);
+            return ResponseEntity.status(500).body(null);
         }
     }
 
-    // Get a Plan by ID
     @GetMapping("/{id}")
     public ResponseEntity<PlanDto> getPlanById(@PathVariable Integer id) {
-        Optional<PlanDto> plan = planService.getPlanById(id);
-        return plan.map(ResponseEntity::ok)
-                .orElseThrow(() -> new PlanNotFoundException("Plan with ID " + id + " not found"));
-    }
-
-    // Update a Plan by ID
-    @PutMapping("/{id}")
-    public ResponseEntity<PlanDto> updatePlan(@PathVariable Integer id, @RequestBody PlanDto planDto) {
-        PlanDto updatedPlan = planService.updatePlan(id, planDto);
-        if (updatedPlan != null) {
-            return ResponseEntity.ok(updatedPlan);
-        } else {
-            throw new PlanNotFoundException("Plan with ID " + id + " not found for update");
+        try {
+            Optional<PlanDto> plan = planService.getPlanById(id);
+            if (plan.isEmpty()) {
+                throw new PlanNotFoundException("Plan with ID " + id + " not found");
+            }
+            return ResponseEntity.ok(plan.get());
+        } catch (PlanNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
         }
     }
 
-    // Delete a Plan by ID
+    @PutMapping("/{id}")
+    public ResponseEntity<PlanDto> updatePlan(@PathVariable Integer id, @RequestBody PlanDto planDto) {
+        try {
+            PlanDto updatedPlan = planService.updatePlan(id, planDto);
+            if (updatedPlan != null) {
+                return ResponseEntity.ok(updatedPlan);
+            } else {
+                throw new PlanNotFoundException("Plan with ID " + id + " not found for update");
+            }
+        } catch (PlanNotFoundException e) {
+            return ResponseEntity.status(404).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(null);
+        }
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePlan(@PathVariable Integer id) {
-        Optional<PlanDto> plan = planService.getPlanById(id);
-        if (plan.isPresent()) {
-            planService.deletePlan(id);
-            return ResponseEntity.noContent().build();
-        } else {
-            throw new PlanNotFoundException("Plan with ID " + id + " not found for deletion");
+        try {
+            Optional<PlanDto> plan = planService.getPlanById(id);
+            if (plan.isPresent()) {
+                planService.deletePlan(id);
+                return ResponseEntity.noContent().build();
+            } else {
+                throw new PlanNotFoundException("Plan with ID " + id + " not found for deletion");
+            }
+        } catch (PlanNotFoundException e) {
+            return ResponseEntity.status(404).build();
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
         }
     }
 }
-
