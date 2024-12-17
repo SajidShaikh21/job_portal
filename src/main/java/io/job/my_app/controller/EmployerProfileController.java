@@ -18,6 +18,10 @@ public class EmployerProfileController {
     @Autowired
     private EmployerProfileService service;
 
+   // @Autowired
+  //  private EmployerProfileService service;
+
+
     @PostMapping
     public ResponseEntity<?> createEmployerProfile(@RequestBody EmployerProfileDto dto) {
         try {
